@@ -1,0 +1,65 @@
+---
+title: "Deaths in Brazil"
+author: "Alexandro Pinto"
+date: "13 de março de 2017"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+
+## The problem
+
+
+Brazil is a continental country, with a variety of state capabilities between the federation units.
+Although information is a crucial tool for the management of government programs, it is unfortunately not available to all states.
+In the health area, the lack of information can lead to the concentration of investments in areas with greater capacity, leaving other regions that have difficulties in the operation of the programs with poor or none investments.
+
+## The application
+
+The application is a prototype of how a simple tool can take information to all parts of the country at a super low cost.
+
+It was used the Brazilian Health Ministry's Dataset.
+Below is a overview of the dataset:
+
+
+```{r, echo=TRUE, eval=FALSE}
+library(reshape2)
+a<-read.csv("./data/morbi.csv", sep = ";", nrows = 27)
+var_melt<-names(a[,3:21])
+a<-melt(a, id.vars = c("UF", "UF_cod"), measure.vars = var_melt)
+names(a)<-c("UF", "id", "Year", "Mort")
+a$Year<-as.numeric(sub("X", "", a$Year))
+
+table(a$Year)
+
+```
+
+
+
+## The application (cont)
+
+
+``````{r, echo=FALSE}
+library(reshape2)
+a<-read.csv("./data/morbi.csv", sep = ";", nrows = 27)
+var_melt<-names(a[,3:21])
+a<-melt(a, id.vars = c("UF", "UF_cod"), measure.vars = var_melt)
+names(a)<-c("UF", "id", "Year", "Mort")
+a$Year<-as.numeric(sub("X", "", a$Year))
+
+table(a$Year)
+
+```
+
+
+As it can see, for each year, there are 27 (number of state in Brazil) row.
+
+## 
+Let's try it!
+URL:https://alexandropinto.shinyapps.io/deaths_in_brazil/
+![Try the aplication](/Users/bruno_olm94/Desktop/Curso Anaálise de Dados/Developing Data Product/project1/map2/app.png)
+
